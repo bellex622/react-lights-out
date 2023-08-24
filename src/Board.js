@@ -34,11 +34,22 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   function createBoard() {
     let initialBoard = [];
     // TODO: create array-of-arrays of true/false values
+    for (let rowIdx = 0; rowIdx < nrows; rowIdx++) {
+      const row = [];
+      for (let colIdx = 0; colIdx < ncols; colIdx++) {
+        let cellVal = Math.random();
+        row.push(cellVal < chanceLightStartsOn);
+      }
+
+      initialBoard.push(row);
+    }
+
     return initialBoard;
   }
 
   function hasWon() {
     // TODO: check the board in state to determine whether the player has won.
+    return initialBoard.flat().every(cell => cell === false);
   }
 
   function flipCellsAround(coord) {
@@ -54,8 +65,10 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
       };
 
       // TODO: Make a (deep) copy of the oldBoard
+      const boardCopy = oldBoard.slice();
 
       // TODO: in the copy, flip this cell and the cells around it
+      flipCell()
 
       // TODO: return the copy
     });
