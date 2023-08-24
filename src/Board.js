@@ -49,7 +49,7 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
 
   function hasWon() {
     // TODO: check the board in state to determine whether the player has won.
-    return initialBoard.flat().every(cell => cell === false);
+    return board.flat().every(cell => cell === false);
   }
 
   function flipCellsAround(coord) {
@@ -68,12 +68,37 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
       const boardCopy = oldBoard.slice();
 
       // TODO: in the copy, flip this cell and the cells around it
-      flipCell()
+      const cellsToChange = [
+        { y, x },
+        { y: y + 1, x },
+        { y: y - 1, x },
+        { y, x: x + 1 },
+        { y, x: x - 1 }
+      ];
+
+      //flip all 5 cells within board copy
+      for (const cell of cellsToChange) {
+        flipCell(cell.y, cell.x, boardCopy);
+      }
 
       // TODO: return the copy
+      return boardCopy;
     });
   }
 
+  function makeTableBoard(){
+
+    let html;
+
+    for (row of board){
+
+    }
+    return (
+    <table>
+      <tr>{board[0].map(cell => <Cell flipCellsAroundMe={flipCellsAround} isLit={cell}/>)}</tr>
+    </table>
+    )
+  }
   // if the game is won, just show a winning msg & render nothing else
 
   // TODO
